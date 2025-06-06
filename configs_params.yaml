@@ -1,0 +1,40 @@
+data_paths:
+  ddr_path: "./data/DDR"
+  lacri_path: "./data/LACRI"
+  test_split: 0.2
+  val_split: 0.1
+
+preprocessing:
+  clahe: True
+  gamma_correction: 1.2
+  resize: [512, 512]
+
+augmentation:
+  hsv_prob: 0.75
+  hue_shift: 20
+  sat_shift: 30
+  val_shift: 20
+  elastic_prob: 0.25
+  ethnic_specific: True
+
+bias_mitigation:
+  use_ethnic_augmentation: True
+  latin_augment_factor: 1.5
+  ethnic_groups: ["asian", "latin", "caucasian", "african"]
+
+model:
+  name: "efficientnet-b4"
+  pretrained: True
+  num_classes: 5
+
+training:
+  lr: 3e-5
+  batch_size: 32
+  epochs: 100
+  early_stopping_patience: 15
+  scheduler_patience: 5
+
+deployment:
+  target_devices: ["cpu", "gpu", "mobile"]
+  quantize: True
+  optimize_for: "latency"
